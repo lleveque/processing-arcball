@@ -29,8 +29,7 @@ package com.processinghacks.arcball;
 
 import processing.core.PApplet;
 import processing.core.PVector;
-
-import java.awt.event.MouseEvent;
+import processing.event.MouseEvent;
 
 public class Arcball {
 
@@ -60,8 +59,8 @@ public class Arcball {
 
     this.parent = parent;
 
-    parent.registerMouseEvent(this);
-    parent.registerPre(this);
+    parent.registerMethod("mouseEvent", this);
+    parent.registerMethod("pre", this);
 
     this.center = center;
     this.radius = radius;
@@ -73,14 +72,14 @@ public class Arcball {
   }
 
   public void mouseEvent(MouseEvent event) {
-    int id = event.getID();
-    if (id == MouseEvent.MOUSE_DRAGGED) {
+    int id = event.getAction();
+    if (id == MouseEvent.DRAG) {
       mouseDragged();
     } 
-    else if (id == MouseEvent.MOUSE_PRESSED) {
+    else if (id == MouseEvent.PRESS) {
       mousePressed();
     }
-    else if (id == MouseEvent.MOUSE_RELEASED) {
+    else if (id == MouseEvent.RELEASE) {
       mouseReleased();
     }
   }
